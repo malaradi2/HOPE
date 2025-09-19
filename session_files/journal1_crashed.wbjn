@@ -1,0 +1,87 @@
+# encoding: utf-8
+# 2022 R2
+SetScriptVersion(Version="22.2.192")
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+system1.DisplayText = "tensile test"
+favorites1 = EngData.LoadFavoriteItems()
+library1 = EngData.OpenLibrary(
+    Name="General Materials",
+    Source="General_Materials.xml")
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+matl1 = engineeringData1.ImportMaterial(
+    Name="Aluminum Alloy",
+    Source="General_Materials.xml")
+material1 = engineeringData1.GetMaterial(Name="Structural Steel")
+matlProp1 = material1.CreateProperty(
+    Name="Kinematic Hardening",
+    Definition="Bilinear",
+    Qualifiers={"Definition": "Bilinear", "Behavior": ""})
+matlProp1.SetData(
+    Index=-1,
+    Variables=["Yield Strength"],
+    Values=[["250000000 [Pa]"]])
+matlProp1.SetData(
+    Variables=["Tangent Modulus"],
+    Values=[["100000000 [Pa]"]])
+matlProp1.SetData(
+    Variables=["Tangent Modulus"],
+    Values=[["10000000000 [Pa]"]])
+matlProp2 = matl1.CreateProperty(
+    Name="Kinematic Hardening",
+    Definition="Bilinear",
+    Qualifiers={"Definition": "Bilinear", "Behavior": ""})
+matlProp2.SetData(
+    Index=-1,
+    Variables=["Yield Strength"],
+    Values=[["280000000 [Pa]"]])
+matlProp2.SetData(
+    Variables=["Tangent Modulus"],
+    Values=[["10000000000 [Pa]"]])
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.Edit()
+geometry1.Exit()
+geometry1.SetFile(FilePath="C:/Users/Mohammad/Downloads/00- Tensile Test Specimen.stp")
+geometry1.Edit()
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+geometry1.Exit()
+modelComponent1.Update(AllDependencies=True)
+model1.Edit()
+geometry1.Edit()
+geometry1.Exit()
+model1.Edit()
+Save(Overwrite=True)
+model1.Edit()
+geometry1.Edit()
+geometry1.Exit()
+geometry1.Edit(IsSpaceClaimGeometry=True)
+geometry1.Edit(IsSpaceClaimGeometry=True)
+geometry1.Edit(IsSpaceClaimGeometry=True)
+modelComponent1.Refresh()
+model1.Edit()
+geometry1.Edit(IsSpaceClaimGeometry=True)
+geometry1.Edit()
+geometry1.SetFile(FilePath="C:/Users/Mohammad/Downloads/00- Tensile Test Specimen.stp")
+geometry1.Edit(IsSpaceClaimGeometry=True)
+modelComponent1.Update(AllDependencies=True)
+modelComponent1.Update(AllDependencies=True)
+model1.Edit()
+model1.Edit()
+model1.Exit()
+model1.Edit()
+model1.Edit()
+modelComponent1.Reset()
+geometryComponent1 = system1.GetComponent(Name="Geometry")
+geometryComponent1.Reset()
+geometry1.Edit()
+geometry1.Exit()
+geometry1.SetFile(FilePath="C:/Users/Mohammad/Downloads/00- Tensile Test Specimen.stp")
+modelComponent1.Refresh()
+modelComponent1.Update(AllDependencies=True)
+model1.Edit()
+model1.Edit()
